@@ -1,0 +1,76 @@
+import java.util.HashMap;
+import java.util.Scanner;
+
+public class StudentGradesManager {
+    public static void main(String[] args) {
+        HashMap<String, Double> studentGrades = new HashMap<>();
+        Scanner scanner = new Scanner(System.in);
+
+        while (true) {
+            System.out.println("\nStudent Grades Manager");
+            System.out.println("1. Add Student");
+            System.out.println("2. Remove Student");
+            System.out.println("3. Update Grade");
+            System.out.println("4. View All Students");
+            System.out.println("5. Get Student Grade");
+            System.out.println("6. Exit");
+            System.out.print("Choose an option: ");
+
+            int choice = scanner.nextInt();
+            scanner.nextLine(); // Consume newline
+
+            switch (choice) {
+                case 1:
+                    System.out.print("Enter student name: ");
+                    String name = scanner.nextLine();
+                    System.out.print("Enter grade: ");
+                    double grade = scanner.nextDouble();
+                    studentGrades.put(name, grade);
+                    System.out.println("Student added successfully.");
+                    break;
+                case 2:
+                    System.out.print("Enter student name to remove: ");
+                    name = scanner.nextLine();
+                    if (studentGrades.remove(name) != null) {
+                        System.out.println("Student removed successfully.");
+                    } else {
+                        System.out.println("Student not found.");
+                    }
+                    break;
+                case 3:
+                    System.out.print("Enter student name to update: ");
+                    name = scanner.nextLine();
+                    if (studentGrades.containsKey(name)) {
+                        System.out.print("Enter new grade: ");
+                        grade = scanner.nextDouble();
+                        studentGrades.put(name, grade);
+                        System.out.println("Grade updated successfully.");
+                    } else {
+                        System.out.println("Student not found.");
+                    }
+                    break;
+                case 4:
+                    System.out.println("Student List:");
+                    studentGrades.forEach((student, studentGrade) -> 
+                        System.out.println("Name: " + student + ", Grade: " + studentGrade));
+                    break;
+                case 5:
+                    System.out.print("Enter student name: ");
+                    name = scanner.nextLine();
+                    Double retrievedGrade = studentGrades.get(name);
+                    if (retrievedGrade != null) {
+                        System.out.println("Grade for " + name + ": " + retrievedGrade);
+                    } else {
+                        System.out.println("Student not found.");
+                    }
+                    break;
+                case 6:
+                    System.out.println("Exiting program. Goodbye!");
+                    scanner.close();
+                    return;
+                default:
+                    System.out.println("Invalid option. Please try again.");
+            }
+        }
+    }
+}
